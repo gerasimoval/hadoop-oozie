@@ -1,5 +1,6 @@
-1. Установка hadoop (single-node-cluster)
-1.1. Скачивание hadoop архива
+# 1 Установка hadoop (single-node-cluster)
+
+## 1.1 Скачивание hadoop архива
 
 $ cd ~/Downloads
 $ mkdir ozzie && cd oozie
@@ -10,7 +11,7 @@ $ export PATH=$PATH:/usr/local/hadoop/bin
 $ which hadoop
 /usr/local/hadoop/bin/hadoop
 
-1.2. Настройка hadoop
+## 1.2. Настройка hadoop
 Указать $JAVA_HOME переменную окружения для Hadoop в /usr/local/hadoop/etc/hadoop/hadoop-env.sh file.
 
 $ sudo vi /usr/local/hadoop/etc/hadoop/hadoop-env.sh
@@ -38,8 +39,9 @@ Hadoop 3.3.6
 
 Hadoop успешно установлен в standalone mode.
 
-2. Настройка HDFS
-2.1. Создание пользователя
+2 Настройка HDFS
+
+2.1 Создание пользователя
 
 Необходимо создать пользователя с sudo правами для запуска hadoop и oozie.
 
@@ -191,7 +193,8 @@ $ ./bin/oozie-setup.sh sharelib create -fs hdfs://localhost:54310
 $ ./bin/ooziedb.sh create -sqlfile oozie.sql -run
 # Старт демона
 $ ./bin/oozied.sh start
+![oozie](oozie_started.jpg|width=500)
 </br>
-<img src="https://github.com/gerasimoval/hadoop-oozie/blob/main/oozie_started.jpg" width="500" height="1000">
+<img src="https://github.com/gerasimoval/hadoop-oozie/blob/main/oozie_started.jpg" width="500">
 </br>
 Web консоль Oozie должна быть доступна по адресу http://localhost:11000/oozie/
