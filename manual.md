@@ -1,6 +1,6 @@
-# 1 Установка hadoop (single-node-cluster)
+# 1. Установка hadoop (single-node-cluster)
 
-## 1.1 Скачивание hadoop архива
+## 1.1. Скачивание hadoop архива
 
 $ cd ~/Downloads
 $ mkdir ozzie && cd oozie
@@ -41,36 +41,36 @@ Hadoop 3.3.6
 
 Hadoop успешно установлен в standalone mode.
 
-2 Настройка HDFS
+# 2. Настройка HDFS
 
-2.1 Создание пользователя
+## 2.1. Создание пользователя
 
 Необходимо создать пользователя с sudo правами для запуска hadoop и oozie.
 
-# Создание пользоваеля и группы
+### Создание пользоваеля и группы
 $ sudo groupadd testlab
 $ sudo useradd –ingroup testlab testlab
 $ passwd testlab
 
-# Добавление sudo прав
+### Добавление sudo прав
 $ sudo adduser testlab sudo
 
-# Изменение владельца HADOOP_HOME на testlab
+### Изменение владельца HADOOP_HOME на testlab
 $ sudo chown -R testlab:testlab /usr/local/hadoop
 
-# Создание SSH ключа
+### Создание SSH ключа
 $ su testlab
 $ ssh-keygen -t rsa -P ""
 $ cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
 $ ssh localhost   # Проверка входа без пароля
 $ exit
 
-2.2. Настройка namenode & datanode
+## 2.2. Настройка namenode & datanode
 
 $ sudo mkdir -p /app/hadoop/tmp
 $ sudo chown testlab:testlab /app/hadoop/tmp
 
-# Натройка HDFS каталога и URI
+## 2.3. Натройка HDFS каталога и URI
 $ sudo vi /usr/local/hadoop/etc/hadoop/core-site.xml
 ```
 <configuration>
@@ -87,7 +87,7 @@ $ sudo vi /usr/local/hadoop/etc/hadoop/core-site.xml
 </configuration>
 ```
 
-# Настройка Haddop tracker
+## 2.4. Настройка Haddop tracker
 $ cp /usr/local/hadoop/etc/hadoop/mapred-site.xml.template /usr/local/hadoop/etc/hadoop/mapred-site.xml
 $ sudo vi /usr/local/hadoop/etc/hadoop/mapred-site.xml
 ```
@@ -101,12 +101,12 @@ $ sudo vi /usr/local/hadoop/etc/hadoop/mapred-site.xml
 </configuration>
 ```
 
-# Настройка namenode и datanode каталогов
+## 2.5. Настройка namenode и datanode каталогов
 $ sudo mkdir -p /usr/local/hadoop_store/hdfs/namenode
 $ sudo mkdir -p /usr/local/hadoop_store/hdfs/datanode
 $ sudo chown -R testlab:testlab /usr/local/hadoop_store
 
-# Настройка HDFS
+## 2.6. Настройка HDFS
 $ sudo vi /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 ```
 <configuration>
@@ -127,7 +127,7 @@ $ sudo vi /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 </configuration>
 ```
 
-# Старт HDFS
+## 2.7. Старт HDFS
 $ cd /usr/local/hadoop_store/hdfs/namenode/
 $ hadoop namenode -format
 $ cd /usr/local/hadoop/sbin 
@@ -138,13 +138,13 @@ $ jps   # Проверка старта Hadoop cluster
     Datanode: http://localhost:50090
     Resource manager: http://localhost:8088
 
-3. Установка Ozzie
-3.1. Установка maven
+# 3. Установка Ozzie
+## 3.1. Установка maven
    
-# Для сборки Oozie необходимо установть maven
+### Для сборки Oozie необходимо установть maven
 $ dnf install maven
 
-3.2. Скачивание Ozzie
+## 3.2. Скачивание Ozzie
 
 $ cd ~/Downloads/ozzie
 $ wget http://mirror.downloadvn.com/apache/oozie/5.2.1/oozie-5.2.1.tar.gz
@@ -153,7 +153,7 @@ $ tar -xzvf oozie-5.2.1.tar.gz
 # Скачивание Ozzie расширения необходимого для web консоли
 $ wget http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
 
-3.2. Сборка Oozie
+## 3.3. Сборка Oozie
 Перед сборкой необходимо отредактировать репозитории, т.к проект мертвый адрес репозитория из исходников мертвый
 
 Добавить в файл ~/oozie-5.2.1/pom.xml в секцию <repositories>
@@ -186,22 +186,22 @@ $ mkdir ../oozie-dist
 $ tar -xzvf distro/target/oozie-5.2.1-distro.tar.gz -C ../oozie-dist
 $ cd ../oozie-dist/oozie-5.2.1
 
-3.3. Добалвение библиотек Oozie libext
+## 3.4. Добалвение библиотек Oozie libext
 
 Создать libext каталог в oozie-dist/oozie-5.2.1/ и распаковать Ext (скачанный в пнкте 3.1).
 
 $ mkdir libext
 $ mv ~/Downloads/ozzie/ext-2.2.zip libext/
 
-# Так же необходимо скопировать hadoop jar'ы из hadoop шары в libext.
+### Так же необходимо скопировать hadoop jar'ы из hadoop шары в libext.
 
-3.5. Старт Oozie демона
+## 3.5. Старт Oozie демона
 
-# Загрузить Oozie sharelib на HDFS
+### Загрузить Oozie sharelib на HDFS
 $ ./bin/oozie-setup.sh sharelib create -fs hdfs://localhost:54310
-# Инициализация Oozie бд
+### Инициализация Oozie бд
 $ ./bin/ooziedb.sh create -sqlfile oozie.sql -run
-# Старт демона
+### Старт демона
 $ ./bin/oozied.sh start
 ![oozie](oozie_started.jpg|width=500)
 </br>
