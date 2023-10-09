@@ -21,8 +21,9 @@ export JAVA_HOME=$(readlink -f $(which java) | sed "s:bin/java::")
 ```
 
 Так же отредактировать ~/.bashrc файл:
-
+```
 $ vi ~/.bashrc
+```
 ```
 export JAVA_HOME=$(readlink -f $(which java) | sed "s:bin/java::")
 export HADOOP_HOME=/usr/local/hadoop
