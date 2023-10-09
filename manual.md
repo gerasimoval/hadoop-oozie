@@ -191,5 +191,7 @@ $ ./bin/oozie-setup.sh sharelib create -fs hdfs://localhost:54310
 $ ./bin/ooziedb.sh create -sqlfile oozie.sql -run
 # Старт демона
 $ ./bin/oozied.sh start
-<img src="https://github.com/gerasimoval/hadoop-oozie/blob/main/oozie_started.jpg">
+</br>
+<img src="https://github.com/gerasimoval/hadoop-oozie/blob/main/oozie_started.jpg" width="500" height="1000">
+</br>
 Web консоль Oozie должна быть доступна по адресу http://localhost:11000/oozie/
