@@ -13,8 +13,9 @@ $ which hadoop
 ```
 ## 1.2. Настройка hadoop
 Указать $JAVA_HOME переменную окружения для Hadoop в /usr/local/hadoop/etc/hadoop/hadoop-env.sh file.
-
+```
 $ sudo vi /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+```
 ```
 export JAVA_HOME=$(readlink -f $(which java) | sed "s:bin/java::")
 ```
