@@ -15,12 +15,14 @@ $ which hadoop
 Указать $JAVA_HOME переменную окружения для Hadoop в /usr/local/hadoop/etc/hadoop/hadoop-env.sh file.
 
 $ sudo vi /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+```
 export JAVA_HOME=$(readlink -f $(which java) | sed "s:bin/java::")
+```
 
 Так же отредактировать ~/.bashrc файл:
 
 $ vi ~/.bashrc
-...
+```
 export JAVA_HOME=$(readlink -f $(which java) | sed "s:bin/java::")
 export HADOOP_HOME=/usr/local/hadoop
 export HADOOP_MAPRED_HOME=$HADOOP_HOME
@@ -30,7 +32,7 @@ export YARN_HOME=$HADOOP_HOME
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
 export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
-...
+```
 
 $ source ~/.bashrc
 $ hadoop version
@@ -70,6 +72,7 @@ $ sudo chown testlab:testlab /app/hadoop/tmp
 
 # Натройка HDFS каталога и URI
 $ sudo vi /usr/local/hadoop/etc/hadoop/core-site.xml
+```
 <configuration>
   ...
   <property>
@@ -82,10 +85,12 @@ $ sudo vi /usr/local/hadoop/etc/hadoop/core-site.xml
   </property>
   ...
 </configuration>
+```
 
 # Настройка Haddop tracker
 $ cp /usr/local/hadoop/etc/hadoop/mapred-site.xml.template /usr/local/hadoop/etc/hadoop/mapred-site.xml
 $ sudo vi /usr/local/hadoop/etc/hadoop/mapred-site.xml
+```
 <configuration>
   ...
   <property>
@@ -94,6 +99,7 @@ $ sudo vi /usr/local/hadoop/etc/hadoop/mapred-site.xml
 </property>
   ...
 </configuration>
+```
 
 # Настройка namenode и datanode каталогов
 $ sudo mkdir -p /usr/local/hadoop_store/hdfs/namenode
@@ -102,6 +108,7 @@ $ sudo chown -R testlab:testlab /usr/local/hadoop_store
 
 # Настройка HDFS
 $ sudo vi /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+```
 <configuration>
   ...
   <property>
@@ -118,6 +125,7 @@ $ sudo vi /usr/local/hadoop/etc/hadoop/hdfs-site.xml
   </property>
   ...
 </configuration>
+```
 
 # Старт HDFS
 $ cd /usr/local/hadoop_store/hdfs/namenode/
@@ -132,7 +140,7 @@ $ jps   # Проверка старта Hadoop cluster
 
 3. Установка Ozzie
 3.1. Установка maven
-
+   
 # Для сборки Oozie необходимо установть maven
 $ dnf install maven
 
@@ -149,6 +157,7 @@ $ wget http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
 Перед сборкой необходимо отредактировать репозитории, т.к проект мертвый адрес репозитория из исходников мертвый
 
 Добавить в файл ~/oozie-5.2.1/pom.xml в секцию <repositories>
+```
 <repositories>
 ...
   <repository>
@@ -166,6 +175,7 @@ $ wget http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
   </repository>
 ...
 <repositories>
+```
 
 $ cd ~/oozie-5.2.1
 $ ./bin/mkdistro.sh -Dmaven.test.skip=true -P hadoop-3 -Dhadoop.version=3.3.6
